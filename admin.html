@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>لوحة النشر | انطلاق</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#1E88C7; --blue-deep:#0F5E8C; --teal:#17A398; --amber:#F5A623;
+    --navy:#0B2536; --paper:#F6F9FA; --paper-2:#EEF3F5; --ink:#0B2536; --ink-soft:#4A6274;
+    --line:rgba(11,37,54,.12); --danger:#C0392B;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'IBM Plex Sans Arabic','Tajawal',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;line-height:1.7;}
+  h1,h2,h3{font-family:'Tajawal','IBM Plex Sans Arabic',sans-serif;font-weight:900;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  input,textarea,select{font-family:inherit;font-size:.95rem;color:var(--ink);}
+  :focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
+  [hidden]{display:none !important;}
+
+  .topbar{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:20;}
+  .topbar b{font-family:'Tajawal',sans-serif;font-weight:800;font-size:1.05rem;}
+  .topbar a{color:#cfe3ef;font-size:.88rem;text-decoration:none;}
+  .topbar a:hover{color:#fff;}
+  .topbar .who{display:flex;align-items:center;gap:16px;font-size:.85rem;color:#cfe3ef;}
+  .link-btn{color:#cfe3ef;font-size:.85rem;text-decoration:underline;}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 20px 80px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;}
+  .center-card{max-width:420px;margin:70px auto 0;}
+  .center-card h1{font-size:1.5rem;margin-bottom:6px;}
+  .muted{color:var(--ink-soft);font-size:.9rem;}
+
+  label{display:block;font-weight:600;font-size:.88rem;margin:16px 0 6px;}
+  .hint{font-weight:400;color:var(--ink-soft);font-size:.8rem;}
+  input[type=text],input[type=email],input[type=password],input[type=number],input[type=datetime-local],textarea,select{
+    width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;
+  }
+  textarea{resize:vertical;line-height:1.9;}
+  input:focus,textarea:focus,select:focus{border-color:var(--blue);}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 22px;border-radius:100px;font-weight:600;font-size:.92rem;transition:background .2s, transform .15s;}
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:var(--blue-deep);}
+  .btn-primary[disabled]{opacity:.6;cursor:wait;}
+  .btn-ghost{border:1.5px solid var(--line);color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--blue);background:rgba(30,136,199,.05);}
+  .btn-danger{color:var(--danger);border:1.5px solid rgba(192,57,43,.3);}
+  .btn-danger:hover{background:rgba(192,57,43,.07);}
+  .btn-sm{padding:7px 16px;font-size:.82rem;}
+
+  .tabs{display:flex;gap:6px;margin-bottom:22px;border-bottom:1px solid var(--line);}
+  .tab{padding:12px 20px;font-weight:700;color:var(--ink-soft);border-bottom:3px solid transparent;margin-bottom:-1px;}
+  .tab[aria-selected=true]{color:var(--blue);border-color:var(--blue);}
+
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap;}
+  .bar h2{font-size:1.25rem;}
+
+  .list{display:flex;flex-direction:column;gap:12px;}
+  .row{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;}
+  .row .thumb{width:76px;height:60px;border-radius:10px;background:var(--paper-2);object-fit:cover;flex:none;}
+  .row .info{flex:1;min-width:0;}
+  .row .info b{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .row .info span{font-size:.8rem;color:var(--ink-soft);}
+  .row .acts{display:flex;gap:8px;flex:none;}
+  .badge{display:inline-block;font-size:.74rem;font-weight:700;padding:2px 10px;border-radius:100px;margin-inline-start:8px;vertical-align:middle;}
+  .badge.on{background:rgba(23,163,152,.14);color:#0d7a71;}
+  .badge.off{background:rgba(245,166,35,.18);color:#9a6400;}
+  .empty{text-align:center;color:var(--ink-soft);padding:40px 10px;border:1.5px dashed var(--line);border-radius:16px;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;}
+  .cover-box{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .cover-box img{width:150px;height:96px;object-fit:cover;border-radius:12px;background:var(--paper-2);}
+  .switch{display:flex;align-items:center;gap:10px;margin-top:20px;font-weight:600;}
+  .switch input{width:20px;height:20px;accent-color:var(--teal);}
+
+  .editor{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+  .toolbar button{padding:5px 12px;font-size:.8rem;border:1px solid var(--line);border-radius:8px;background:#fff;}
+  .toolbar button:hover{border-color:var(--blue);color:var(--blue);}
+  .preview{border:1px dashed var(--line);border-radius:12px;padding:16px 18px;min-height:240px;background:#fcfdfd;overflow:auto;max-height:520px;}
+  .preview h2{font-size:1.2rem;margin:1em 0 .4em;} .preview h3{font-size:1.05rem;margin:1em 0 .4em;}
+  .preview p{margin-bottom:.9em;} .preview img{max-width:100%;border-radius:10px;margin:.6em 0;}
+  .preview ul{padding-right:1.2em;margin-bottom:.9em;}
+  .preview blockquote{border-right:3px solid var(--teal);padding-right:12px;color:var(--ink-soft);margin-bottom:.9em;}
+  .preview a{color:var(--blue);}
+  @media (max-width:760px){ .grid2,.editor{grid-template-columns:1fr;} .row{flex-wrap:wrap;} .row .acts{width:100%;} }
+
+  .notice{padding:14px 16px;border-radius:12px;font-size:.9rem;margin-top:16px;}
+  .notice.err{background:rgba(192,57,43,.08);color:#8e2a1f;}
+  .notice.warn{background:rgba(245,166,35,.14);color:#7a5200;}
+  .notice code{direction:ltr;unicode-bidi:embed;background:rgba(11,37,54,.07);padding:1px 6px;border-radius:6px;}
+
+  .toast{position:fixed;bottom:24px;right:50%;transform:translateX(50%) translateY(20px);background:var(--navy);color:#fff;padding:12px 22px;border-radius:100px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;z-index:50;}
+  .toast.show{opacity:1;transform:translateX(50%) translateY(0);}
+  .toast.bad{background:var(--danger);}
+</style>
+</head>
+<body>
+
+<!-- إعداد ناقص -->
+<main class="wrap" id="viewSetup" hidden>
+  <div class="card center-card">
+    <h1>أكمل إعداد الاتصال</h1>
+    <p class="muted">افتح الملف <code>site-config.js</code> وضع فيه رابط مشروع Supabase والمفتاح العام (anon)، ثم حدّث هذه الصفحة.</p>
+  </div>
+</main>
+
+<!-- تسجيل الدخول -->
+<main class="wrap" id="viewLogin" hidden>
+  <div class="card center-card">
+    <h1>لوحة النشر</h1>
+    <p class="muted">سجّل دخولك لإدارة المقالات والمشاريع.</p>
+    <form id="loginForm" novalidate>
+      <label for="loginEmail">البريد الإلكتروني</label>
+      <input type="email" id="loginEmail" autocomplete="username" required dir="ltr">
+      <label for="loginPass">كلمة المرور</label>
+      <input type="password" id="loginPass" autocomplete="current-password" required dir="ltr">
+      <div class="notice err" id="loginErr" hidden></div>
+      <button class="btn btn-primary" id="loginBtn" type="submit" style="width:100%;margin-top:22px;">تسجيل الدخول</button>
+    </form>
+  </div>
+</main>
+
+<!-- ليس مشرفًا -->
+<main class="wrap" id="viewDenied" hidden>
+  <div class="card center-card">
+    <h1>هذا الحساب ما عنده صلاحية نشر</h1>
+    <p class="muted">أضف حسابك لجدول <code>admins</code> بتشغيل آخر سطر في ملف <code>supabase-setup.sql</code>، ثم سجّل الدخول من جديد.</p>
+    <button class="btn btn-ghost" id="deniedOut" style="margin-top:20px;">تسجيل الخروج</button>
+  </div>
+</main>
+
+<!-- اللوحة -->
+<div id="viewApp" hidden>
+  <header class="topbar">
+    <b>لوحة النشر</b>
+    <div class="who">
+      <a href="index.html" target="_blank" rel="noopener">فتح الموقع</a>
+      <span id="whoEmail" dir="ltr"></span>
+      <button class="link-btn" id="logoutBtn" type="button">خروج</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tabPosts" aria-selected="true" type="button">المقالات</button>
+      <button class="tab" role="tab" id="tabProjects" aria-selected="false" type="button">المشاريع</button>
+    </div>
+
+    <!-- المقالات: القائمة -->
+    <section id="postsList">
+      <div class="bar"><h2>المقالات</h2><button class="btn btn-primary" id="newPost" type="button">مقال جديد</button></div>
+      <div class="list" id="postsRows"></div>
+    </section>
+
+    <!-- المقالات: المحرر -->
+    <section id="postEditor" hidden>
+      <div class="bar"><h2 id="postEditorTitle">مقال جديد</h2><button class="btn btn-ghost btn-sm" id="postBack" type="button">رجوع للقائمة</button></div>
+      <div class="card">
+        <label for="pTitle" style="margin-top:0;">العنوان</label>
+        <input type="text" id="pTitle" maxlength="140">
+        <div class="grid2">
+          <div>
+            <label for="pSlug">الرابط المختصر <span class="hint">(يظهر في عنوان المقال)</span></label>
+            <input type="text" id="pSlug" dir="ltr" maxlength="120">
+          </div>
+          <div>
+            <label for="pDate">تاريخ النشر <span class="hint">(اتركه فارغًا لينشر الآن، أو حدد تاريخ لاحق لجدولته)</span></label>
+            <input type="datetime-local" id="pDate" dir="ltr">
+          </div>
+        </div>
+        <label for="pExcerpt">مقدمة قصيرة <span class="hint">(تظهر على بطاقة المقال)</span></label>
+        <textarea id="pExcerpt" rows="2" maxlength="260"></textarea>
+
+        <label>صورة الغلاف</label>
+        <div class="cover-box">
+          <img id="pCoverPrev" alt="" hidden>
+          <input type="file" id="pCoverFile" accept="image/*" hidden>
+          <button class="btn btn-ghost btn-sm" id="pCoverBtn" type="button">اختيار صورة</button>
+          <button class="btn btn-ghost btn-sm" id="pCoverClear" type="button" hidden>إزالة الصورة</button>
+        </div>
+
+        <label for="pContent">نص المقال</label>
+        <div class="toolbar">
+          <button type="button" data-ins="## ">عنوان فرعي</button>
+          <button type="button" data-wrap="**">غامق</button>
+          <button type="button" data-ins="- ">قائمة</button>
+          <button type="button" data-ins="> ">اقتباس</button>
+          <button type="button" data-link="1">رابط</button>
+          <button type="button" id="pInsertImg">إدراج صورة</button>
+          <input type="file" id="pInsertImgFile" accept="image/*" hidden>
+        </div>
+        <div class="editor">
+          <textarea id="pContent" rows="16"></textarea>
+          <div class="preview" id="pPreview" aria-label="معاينة"></div>
+        </div>
+        <p class="hint" style="margin-top:8px;">افصل الفقرات بسطر فارغ. العنوان الفرعي يبدأ بـ <code dir="ltr">##</code> والقوائم بـ <code dir="ltr">-</code>.</p>
+
+        <label class="switch"><input type="checkbox" id="pPublished"> نشر المقال على الموقع</label>
+        <div class="notice err" id="postErr" hidden></div>
+        <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;">
+          <button class="btn btn-primary" id="postSave" type="button">حفظ المقال</button>
+          <button class="btn btn-ghost" id="postCancel" type="button">إلغاء</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- المشاريع: القائمة -->
+    <section id="projList" hidden>
+      <div class="bar"><h2>المشاريع</h2><button class="btn btn-primary" id="newProj" type="button">مشروع جديد</button></div>
+      <div class="list" id="projRows"></div>
+    </section>
+
+    <!-- المشاريع: المحرر -->
+    <section id="projEditor" hidden>
+      <div class="bar"><h2 id="projEditorTitle">مشروع جديد</h2><button class="btn btn-ghost btn-sm" id="projBack" type="button">رجوع للقائمة</button></div>
+      <div class="card">
+        <label for="jTitle" style="margin-top:0;">اسم المشروع</label>
+        <input type="text" id="jTitle" maxlength="120">
+        <div class="grid2">
+          <div>
+            <label for="jCat">التصنيف</label>
+            <select id="jCat">
+              <option value="identity">هوية تجارية</option>
+              <option value="social">سوشيال ميديا</option>
+              <option value="ads">إعلانات ممولة</option>
+              <option value="">بدون تصنيف</option>
+            </select>
+          </div>
+          <div>
+            <label for="jOrder">الترتيب <span class="hint">(الرقم الأصغر يظهر أولًا)</span></label>
+            <input type="number" id="jOrder" value="0" dir="ltr">
+          </div>
+        </div>
+        <label for="jDesc">وصف المشروع <span class="hint">(اختياري، يظهر عند الضغط على المشروع)</span></label>
+        <textarea id="jDesc" rows="3" maxlength="500"></textarea>
+
+        <label>صورة المشروع</label>
+        <div class="cover-box">
+          <img id="jCoverPrev" alt="" hidden>
+          <input type="file" id="jCoverFile" accept="image/*" hidden>
+          <button class="btn btn-ghost btn-sm" id="jCoverBtn" type="button">اختيار صورة</button>
+        </div>
+
+        <label class="switch"><input type="checkbox" id="jPublished" checked> عرض المشروع على الموقع</label>
+        <div class="notice err" id="projErr" hidden></div>
+        <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;">
+          <button class="btn btn-primary" id="projSave" type="button">حفظ المشروع</button>
+          <button class="btn btn-ghost" id="projCancel" type="button">إلغاء</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="site-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js"></script>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var cfg = window.ENTILAQ_DB || {};
+  var configured = cfg.url && cfg.anonKey && !/YOUR-/i.test(cfg.url + cfg.anonKey);
+  var views = ['viewSetup','viewLogin','viewDenied','viewApp'];
+  function show(id){ views.forEach(function(v){ $(v).hidden = (v !== id); }); }
+
+  /* ---------- أدوات مشتركة ---------- */
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function safeUrl(u){ u = u.trim(); return /^(https?:\/\/|\/|#|mailto:)/i.test(u) ? u : '#'; }
+  function inline(t){
+    t = esc(t);
+    t = t.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, function(m,a,u){ return '<img src="' + safeUrl(u) + '" alt="' + a + '" loading="lazy">'; });
+    t = t.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function(m,a,u){ return '<a href="' + safeUrl(u) + '" target="_blank" rel="noopener noreferrer">' + a + '</a>'; });
+    t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    return t;
+  }
+  function renderContent(src){
+    return String(src || '').replace(/\r/g,'').split(/\n{2,}/).map(function(b){
+      b = b.trim(); if(!b) return '';
+      if(/^###\s/.test(b)) return '<h3>' + inline(b.slice(4)) + '</h3>';
+      if(/^##\s/.test(b))  return '<h2>' + inline(b.slice(3)) + '</h2>';
+      if(/^>\s/.test(b))   return '<blockquote>' + inline(b.replace(/^>\s?/gm,'')) + '</blockquote>';
+      if(/^-\s/.test(b))   return '<ul>' + b.split('\n').map(function(l){ return '<li>' + inline(l.replace(/^-\s*/,'')) + '</li>'; }).join('') + '</ul>';
+      return '<p>' + inline(b).replace(/\n/g,'<br>') + '</p>';
+    }).join('');
+  }
+  function slugify(t){
+    var s = t.trim().toLowerCase().replace(/[\u064B-\u065F\u0640]/g,'').replace(/\s+/g,'-').replace(/[^\p{L}\p{N}-]+/gu,'').replace(/-+/g,'-').replace(/^-|-$/g,'');
+    return s || ('post-' + Date.now().toString(36));
+  }
+  function fmt(d){ try{ return new Date(d).toLocaleDateString('ar-u-ca-gregory-nu-latn',{year:'numeric',month:'long',day:'numeric'}); }catch(e){ return ''; } }
+  function toLocalInput(iso){
+    if(!iso) return '';
+    var d = new Date(iso); var p = function(n){ return String(n).padStart(2,'0'); };
+    return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+  var toastT;
+  function toast(msg, bad){
+    var t = $('toast'); t.textContent = msg; t.classList.toggle('bad', !!bad); t.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(function(){ t.classList.remove('show'); }, 2600);
+  }
+  function showErr(id, msg){ var n = $(id); n.textContent = msg; n.hidden = !msg; }
+  function msgOf(e){
+    var m = (e && e.message) || '';
+    if(/duplicate key|unique/i.test(m)) return 'الرابط المختصر مستخدم لمقال آخر. غيّره وأعد الحفظ.';
+    if(/row-level security|permission|not authorized|JWT/i.test(m)) return 'ما عندك صلاحية لهذا الإجراء. سجّل الدخول من جديد وتأكد أن حسابك مضاف كمشرف.';
+    return m || 'صار خطأ غير متوقع. حاول مرة ثانية.';
+  }
+
+  /* ضغط الصورة قبل الرفع: أقصى بعد 1600px، JPEG */
+  function shrink(file, max){
+    max = max || 1600;
+    return new Promise(function(res, rej){
+      var img = new Image(), u = URL.createObjectURL(file);
+      img.onload = function(){
+        var r = Math.min(1, max / Math.max(img.width, img.height));
+        var c = document.createElement('canvas');
+        c.width = Math.round(img.width * r); c.height = Math.round(img.height * r);
+        var x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0,0,c.width,c.height); x.drawImage(img,0,0,c.width,c.height);
+        URL.revokeObjectURL(u);
+        c.toBlob(function(b){ b ? res(b) : rej(new Error('تعذر معالجة الصورة')); }, 'image/jpeg', .86);
+      };
+      img.onerror = function(){ URL.revokeObjectURL(u); rej(new Error('الملف ليس صورة صالحة')); };
+      img.src = u;
+    });
+  }
+  async function uploadImage(file, folder){
+    var blob = await shrink(file);
+    var path = folder + '/' + (crypto.randomUUID ? crypto.randomUUID() : Date.now() + '-' + Math.random().toString(36).slice(2)) + '.jpg';
+    var up = await sb.storage.from('media').upload(path, blob, { contentType:'image/jpeg', cacheControl:'31536000' });
+    if(up.error) throw up.error;
+    return sb.storage.from('media').getPublicUrl(path).data.publicUrl;
+  }
+
+  /* ---------- البدء ---------- */
+  var sb;
+  if(!configured){ show('viewSetup'); return; }
+  sb = window.supabase.createClient(cfg.url, cfg.anonKey);
+
+  async function route(session){
+    if(!session){ show('viewLogin'); return; }
+    var r = await sb.from('admins').select('user_id').eq('user_id', session.user.id).maybeSingle();
+    if(r.error || !r.data){ show('viewDenied'); return; }
+    $('whoEmail').textContent = session.user.email || '';
+    show('viewApp');
+    loadPosts(); loadProjects();
+  }
+  sb.auth.getSession().then(function(r){ route(r.data.session); });
+  sb.auth.onAuthStateChange(function(ev, session){ if(ev === 'SIGNED_OUT') show('viewLogin'); });
+
+  $('loginForm').addEventListener('submit', async function(e){
+    e.preventDefault(); showErr('loginErr','');
+    var btn = $('loginBtn'); btn.disabled = true;
+    var r = await sb.auth.signInWithPassword({ email:$('loginEmail').value.trim(), password:$('loginPass').value });
+    btn.disabled = false;
+    if(r.error){ showErr('loginErr', 'البريد أو كلمة المرور غير صحيحة.'); return; }
+    route(r.data.session);
+  });
+  function out(){ sb.auth.signOut(); }
+  $('logoutBtn').addEventListener('click', out);
+  $('deniedOut').addEventListener('click', out);
+
+  /* ---------- التبويبات ---------- */
+  function tab(which){
+    var p = which === 'posts';
+    $('tabPosts').setAttribute('aria-selected', p); $('tabProjects').setAttribute('aria-selected', !p);
+    $('postsList').hidden = !p; $('postEditor').hidden = true;
+    $('projList').hidden = p;   $('projEditor').hidden = true;
+  }
+  $('tabPosts').addEventListener('click', function(){ tab('posts'); });
+  $('tabProjects').addEventListener('click', function(){ tab('projects'); });
+
+  /* ================= المقالات ================= */
+  var curPost = null, slugTouched = false;
+
+  async function loadPosts(){
+    var r = await sb.from('posts').select('id,slug,title,cover_url,published,published_at,updated_at').order('created_at',{ascending:false});
+    var box = $('postsRows'); box.innerHTML = '';
+    if(r.error){ box.innerHTML = '<div class="empty">تعذر تحميل المقالات.</div>'; return; }
+    if(!r.data.length){ box.innerHTML = '<div class="empty">ما فيه مقالات بعد. اضغط «مقال جديد» وابدأ.</div>'; return; }
+    r.data.forEach(function(p){
+      var row = document.createElement('div'); row.className = 'row';
+      var scheduled = p.published && p.published_at && new Date(p.published_at) > new Date();
+      row.innerHTML =
+        (p.cover_url ? '<img class="thumb" alt="" src="' + esc(p.cover_url) + '">' : '<div class="thumb"></div>') +
+        '<div class="info"><b>' + esc(p.title) + '<span class="badge ' + (p.published ? 'on' : 'off') + '">' + (scheduled ? 'مجدول' : p.published ? 'منشور' : 'مسودة') + '</span></b>' +
+        '<span>' + (p.published_at ? fmt(p.published_at) : 'آخر تعديل ' + fmt(p.updated_at)) + '</span></div>' +
+        '<div class="acts"><button class="btn btn-ghost btn-sm" data-a="edit">تعديل</button><button class="btn btn-danger btn-sm" data-a="del">حذف</button></div>';
+      row.querySelector('[data-a=edit]').addEventListener('click', function(){ openPost(p.id); });
+      row.querySelector('[data-a=del]').addEventListener('click', async function(){
+        if(!confirm('حذف المقال «' + p.title + '» نهائيًا؟')) return;
+        var d = await sb.from('posts').delete().eq('id', p.id);
+        if(d.error){ toast(msgOf(d.error), true); return; }
+        toast('تم حذف المقال'); loadPosts();
+      });
+      box.appendChild(row);
+    });
+  }
+
+  function fillPost(p){
+    curPost = p && p.id ? p : null;
+    $('postEditorTitle').textContent = curPost ? 'تعديل المقال' : 'مقال جديد';
+    $('pTitle').value = p ? p.title : '';
+    $('pSlug').value = p ? p.slug : '';
+    slugTouched = !!(p && p.slug);
+    $('pExcerpt').value = p ? (p.excerpt || '') : '';
+    $('pContent').value = p ? (p.content || '') : '';
+    $('pDate').value = p ? toLocalInput(p.published_at) : '';
+    $('pPublished').checked = p ? !!p.published : false;
+    setCover(p ? p.cover_url : '');
+    showErr('postErr',''); updatePreview();
+    $('postsList').hidden = true; $('postEditor').hidden = false; window.scrollTo(0,0);
+  }
+  async function openPost(id){
+    var r = await sb.from('posts').select('*').eq('id', id).single();
+    if(r.error){ toast(msgOf(r.error), true); return; }
+    fillPost(r.data);
+  }
+  function closePost(){ $('postEditor').hidden = true; $('postsList').hidden = false; }
+  $('newPost').addEventListener('click', function(){ fillPost(null); });
+  $('postBack').addEventListener('click', closePost);
+  $('postCancel').addEventListener('click', closePost);
+
+  var coverUrl = '';
+  function setCover(u){
+    coverUrl = u || '';
+    $('pCoverPrev').hidden = !coverUrl; if(coverUrl) $('pCoverPrev').src = coverUrl;
+    $('pCoverClear').hidden = !coverUrl;
+    $('pCoverBtn').textContent = coverUrl ? 'تغيير الصورة' : 'اختيار صورة';
+  }
+  $('pCoverBtn').addEventListener('click', function(){ $('pCoverFile').click(); });
+  $('pCoverClear').addEventListener('click', function(){ setCover(''); });
+  $('pCoverFile').addEventListener('change', async function(){
+    var f = this.files[0]; this.value = ''; if(!f) return;
+    $('pCoverBtn').textContent = 'جارٍ الرفع…';
+    try{ setCover(await uploadImage(f, 'posts')); toast('تم رفع الصورة'); }
+    catch(e){ toast(msgOf(e), true); setCover(coverUrl); }
+  });
+
+  $('pTitle').addEventListener('input', function(){ if(!slugTouched) $('pSlug').value = slugify(this.value); });
+  $('pSlug').addEventListener('input', function(){ slugTouched = true; });
+  function updatePreview(){ $('pPreview').innerHTML = renderContent($('pContent').value) || '<p class="muted">المعاينة تظهر هنا أثناء الكتابة.</p>'; }
+  $('pContent').addEventListener('input', updatePreview);
+
+  /* شريط التنسيق */
+  var ta = $('pContent');
+  function insertAt(text){
+    var s = ta.selectionStart, e = ta.selectionEnd;
+    ta.value = ta.value.slice(0,s) + text + ta.value.slice(e);
+    ta.focus(); ta.selectionStart = ta.selectionEnd = s + text.length; updatePreview();
+  }
+  document.querySelectorAll('.toolbar [data-ins]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var s = ta.selectionStart, before = ta.value.slice(0,s);
+      insertAt((before && !/\n$/.test(before) ? '\n\n' : '') + b.getAttribute('data-ins'));
+    });
+  });
+  document.querySelectorAll('.toolbar [data-wrap]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var w = b.getAttribute('data-wrap'), s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.slice(s,e) || 'نص';
+      insertAt(w + sel + w);
+    });
+  });
+  document.querySelector('.toolbar [data-link]').addEventListener('click', function(){
+    var u = prompt('الصق الرابط (يبدأ بـ https://)'); if(!u) return;
+    var s = ta.selectionStart, e = ta.selectionEnd; insertAt('[' + (ta.value.slice(s,e) || 'نص الرابط') + '](' + u.trim() + ')');
+  });
+  $('pInsertImg').addEventListener('click', function(){ $('pInsertImgFile').click(); });
+  $('pInsertImgFile').addEventListener('change', async function(){
+    var f = this.files[0]; this.value = ''; if(!f) return;
+    $('pInsertImg').textContent = 'جارٍ الرفع…';
+    try{ var u = await uploadImage(f, 'posts/content'); insertAt('\n\n![](' + u + ')\n\n'); toast('تم إدراج الصورة'); }
+    catch(e){ toast(msgOf(e), true); }
+    $('pInsertImg').textContent = 'إدراج صورة';
+  });
+
+  $('postSave').addEventListener('click', async function(){
+    showErr('postErr','');
+    var title = $('pTitle').value.trim();
+    if(!title){ showErr('postErr','اكتب عنوان المقال أول.'); $('pTitle').focus(); return; }
+    var slug = slugify($('pSlug').value || title);
+    var published = $('pPublished').checked;
+    var dt = $('pDate').value;
+    var row = {
+      title: title, slug: slug, excerpt: $('pExcerpt').value.trim() || null,
+      content: $('pContent').value, cover_url: coverUrl || null, published: published,
+      published_at: published ? (dt ? new Date(dt).toISOString() : (curPost && curPost.published_at) || new Date().toISOString()) : null
+    };
+    var btn = $('postSave'); btn.disabled = true;
+    var r = curPost ? await sb.from('posts').update(row).eq('id', curPost.id) : await sb.from('posts').insert(row);
+    btn.disabled = false;
+    if(r.error){ showErr('postErr', msgOf(r.error)); return; }
+    toast(published ? 'تم نشر المقال' : 'تم حفظ المسودة');
+    closePost(); loadPosts();
+  });
+
+  /* ================= المشاريع ================= */
+  var curProj = null, projCover = '';
+  var catNames = { identity:'هوية تجارية', social:'سوشيال ميديا', ads:'إعلانات ممولة' };
+
+  async function loadProjects(){
+    var r = await sb.from('projects').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+    var box = $('projRows'); box.innerHTML = '';
+    if(r.error){ box.innerHTML = '<div class="empty">تعذر تحميل المشاريع.</div>'; return; }
+    if(!r.data.length){ box.innerHTML = '<div class="empty">ما فيه مشاريع بعد. اضغط «مشروع جديد» وارفع أول عمل.</div>'; return; }
+    r.data.forEach(function(p){
+      var row = document.createElement('div'); row.className = 'row';
+      row.innerHTML =
+        '<img class="thumb" alt="" src="' + esc(p.cover_url) + '">' +
+        '<div class="info"><b>' + esc(p.title) + '<span class="badge ' + (p.published ? 'on' : 'off') + '">' + (p.published ? 'ظاهر' : 'مخفي') + '</span></b>' +
+        '<span>' + esc(catNames[p.category] || p.category || 'بدون تصنيف') + '</span></div>' +
+        '<div class="acts"><button class="btn btn-ghost btn-sm" data-a="edit">تعديل</button><button class="btn btn-danger btn-sm" data-a="del">حذف</button></div>';
+      row.querySelector('[data-a=edit]').addEventListener('click', function(){ fillProj(p); });
+      row.querySelector('[data-a=del]').addEventListener('click', async function(){
+        if(!confirm('حذف المشروع «' + p.title + '» نهائيًا؟')) return;
+        var d = await sb.from('projects').delete().eq('id', p.id);
+        if(d.error){ toast(msgOf(d.error), true); return; }
+        toast('تم حذف المشروع'); loadProjects();
+      });
+      box.appendChild(row);
+    });
+  }
+  function setProjCover(u){
+    projCover = u || '';
+    $('jCoverPrev').hidden = !projCover; if(projCover) $('jCoverPrev').src = projCover;
+    $('jCoverBtn').textContent = projCover ? 'تغيير الصورة' : 'اختيار صورة';
+  }
+  function fillProj(p){
+    curProj = p && p.id ? p : null;
+    $('projEditorTitle').textContent = curProj ? 'تعديل المشروع' : 'مشروع جديد';
+    $('jTitle').value = p ? p.title : '';
+    var cat = p ? (p.category || '') : 'identity';
+    var sel = $('jCat');
+    if(cat && !sel.querySelector('option[value="' + cat.replace(/"/g,'') + '"]')){ var o = document.createElement('option'); o.value = cat; o.textContent = cat; sel.insertBefore(o, sel.firstChild); }
+    sel.value = cat;
+    $('jOrder').value = p ? p.sort_order : 0;
+    $('jDesc').value = p ? (p.description || '') : '';
+    $('jPublished').checked = p ? !!p.published : true;
+    setProjCover(p ? p.cover_url : '');
+    showErr('projErr','');
+    $('projList').hidden = true; $('projEditor').hidden = false; window.scrollTo(0,0);
+  }
+  function closeProj(){ $('projEditor').hidden = true; $('projList').hidden = false; }
+  $('newProj').addEventListener('click', function(){ fillProj(null); });
+  $('projBack').addEventListener('click', closeProj);
+  $('projCancel').addEventListener('click', closeProj);
+  $('jCoverBtn').addEventListener('click', function(){ $('jCoverFile').click(); });
+  $('jCoverFile').addEventListener('change', async function(){
+    var f = this.files[0]; this.value = ''; if(!f) return;
+    $('jCoverBtn').textContent = 'جارٍ الرفع…';
+    try{ setProjCover(await uploadImage(f, 'projects')); toast('تم رفع الصورة'); }
+    catch(e){ toast(msgOf(e), true); setProjCover(projCover); }
+  });
+  $('projSave').addEventListener('click', async function(){
+    showErr('projErr','');
+    var title = $('jTitle').value.trim();
+    if(!title){ showErr('projErr','اكتب اسم المشروع.'); $('jTitle').focus(); return; }
+    if(!projCover){ showErr('projErr','ارفع صورة المشروع أول.'); return; }
+    var row = {
+      title: title, category: $('jCat').value || null, description: $('jDesc').value.trim() || null,
+      cover_url: projCover, sort_order: parseInt($('jOrder').value, 10) || 0, published: $('jPublished').checked
+    };
+    var btn = $('projSave'); btn.disabled = true;
+    var r = curProj ? await sb.from('projects').update(row).eq('id', curProj.id) : await sb.from('projects').insert(row);
+    btn.disabled = false;
+    if(r.error){ showErr('projErr', msgOf(r.error)); return; }
+    toast('تم حفظ المشروع'); closeProj(); loadProjects();
+  });
+})();
+</script>
+</body>
+</html>
