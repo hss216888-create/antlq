@@ -807,6 +807,32 @@
     .post-content{font-size:.98rem;}
   }
 
+    /* ---------- sign-up / log-in modal ---------- */
+  .auth-overlay{
+    position:fixed;inset:0;z-index:120;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;
+    background:rgba(11,37,54,.55);backdrop-filter:blur(3px);padding:6vh 16px 24px;
+  }
+  .auth-overlay.open{display:flex;}
+  .auth-sheet{position:relative;width:100%;max-width:420px;background:#fff;border-radius:24px;padding:34px 30px 30px;box-shadow:0 30px 80px rgba(11,37,54,.25);margin:auto 0;}
+  .auth-sheet h2{font-size:1.5rem;margin-bottom:6px;color:var(--ink);}
+  .auth-sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:20px;line-height:1.8;}
+  .auth-tabs{display:flex;gap:4px;padding:4px;border-radius:100px;background:var(--paper-2);margin-bottom:4px;}
+  .auth-tabs button{flex:1;padding:10px 12px;border-radius:100px;font-weight:700;font-size:.9rem;color:var(--ink-soft);transition:background .2s,color .2s;}
+  .auth-tabs button[aria-selected=true]{background:#fff;color:var(--blue);box-shadow:0 2px 8px rgba(11,37,54,.1);}
+  .auth-sheet label{display:block;font-weight:600;font-size:.86rem;margin:16px 0 6px;color:var(--ink);}
+  .auth-sheet input,.auth-sheet select{width:100%;padding:12px 14px;border:1px solid rgba(11,37,54,.14);border-radius:12px;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff;}
+  .auth-sheet input:focus,.auth-sheet select:focus{border-color:var(--blue);outline:none;box-shadow:0 0 0 3px rgba(30,136,199,.15);}
+  .auth-err{margin-top:14px;padding:10px 14px;border-radius:12px;background:rgba(192,57,43,.08);color:#8e2a1f;font-size:.88rem;line-height:1.7;}
+  .auth-sheet .btn-primary{width:100%;margin-top:22px;justify-content:center;text-align:center;display:flex;}
+  .auth-sheet .btn-primary[disabled]{opacity:.65;cursor:wait;}
+  .auth-done{text-align:center;padding-top:6px;}
+  .auth-done p{color:var(--ink);line-height:1.9;margin:14px 0 4px;}
+  .auth-code{text-align:center;font-size:1.7rem !important;letter-spacing:.5em;font-weight:700;padding:14px 10px !important;}
+  .auth-note{color:var(--ink-soft);font-size:.9rem;line-height:1.9;margin-bottom:6px;}
+  .auth-link[disabled]{opacity:.55;cursor:default;text-decoration:none;}
+  .auth-link{display:block;margin:16px auto 0;color:var(--ink-soft);font-size:.86rem;text-decoration:underline;text-underline-offset:3px;}
+  @media (max-width:480px){ .auth-sheet{padding:30px 22px 26px;} }
+
   /* ---------- testimonials ---------- */
   .testimonials{background:transparent;}
   .testi-grid{
@@ -1204,7 +1230,7 @@
     <div class="nav-actions">
       <!-- الملف التعريفي: ارفع ملف entilaq-profile.pdf بجانب index.html -->
       <a href="entilaq-profile.pdf" target="_blank" rel="noopener" class="nav-profile">الملف التعريفي</a>
-      <a href="https://wa.me/966506009292" target="_blank" rel="noopener" class="nav-cta btn-ripple">ابدأ مشروعك</a>
+      <a href="#contact" class="nav-cta btn-ripple">ابدأ مشروعك</a>
     </div>
     <button class="nav-burger" id="navBurger" aria-label="القائمة">
       <span></span><span></span><span></span>
@@ -2347,7 +2373,8 @@
 
   function $(id){ return document.getElementById(id); }
   function api(path){
-    return fetch(base + path, { headers:{ apikey:cfg.anonKey, Authorization:'Bearer ' + cfg.anonKey } })
+    var h = { apikey:cfg.anonKey }; if(/^eyJ/.test(cfg.anonKey)) h.Authorization = 'Bearer ' + cfg.anonKey;
+    return fetch(base + path, { headers:h })
       .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); });
   }
   function el(tag, cls, text){ var n = document.createElement(tag); if(cls) n.className = cls; if(text != null) n.textContent = text; return n; }
@@ -2457,12 +2484,6 @@
   $('postClose').addEventListener('click', closePost);
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closePost(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closePost(); });
-  $('postCta').addEventListener('click', function(e){
-    e.preventDefault();
-    setOpen(false); document.title = baseTitle;
-    if(/[?&]post=/.test(location.search)) history.replaceState({}, '', location.pathname);
-    var c = $('contact'); if(c) c.scrollIntoView({ behavior:'smooth' });
-  });
   window.addEventListener('popstate', function(){
     var m = location.search.match(/[?&]post=([^&]+)/);
     if(m) openPost(decodeURIComponent(m[1]), null, null, true); else finishClose();
@@ -2516,5 +2537,244 @@
     .catch(function(err){ console.warn('projects:', err); });
 })();
 </script>
+<div class="auth-overlay" id="authOverlay" aria-hidden="true">
+  <div class="auth-sheet" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="post-close" id="authClose" type="button" aria-label="إغلاق">✕</button>
+    <h2 id="authTitle">ابدأ مشروعك</h2>
+    <p class="auth-sub" id="authSub">أنشئ حسابك واحصل على خصم 10% على أول طلب.</p>
+    <div id="authFormWrap">
+      <div class="auth-tabs" role="tablist">
+        <button role="tab" id="tabSignup" aria-selected="true" type="button">إنشاء حساب</button>
+        <button role="tab" id="tabLogin" aria-selected="false" type="button">تسجيل الدخول</button>
+      </div>
+      <form id="authForm" novalidate>
+        <div id="fName">
+          <label for="aName">الاسم</label>
+          <input type="text" id="aName" autocomplete="name" maxlength="60">
+        </div>
+        <div id="fExtra">
+          <label for="aPhone">رقم الجوال</label>
+          <input type="tel" id="aPhone" dir="ltr" autocomplete="tel" inputmode="tel" placeholder="05XXXXXXXX" maxlength="20">
+          <label for="aRegion">المنطقة</label>
+          <select id="aRegion">
+            <option value="" selected disabled>اختر المنطقة</option>
+            <option value="منطقة الرياض">منطقة الرياض</option>
+            <option value="منطقة مكة المكرمة">منطقة مكة المكرمة</option>
+            <option value="المنطقة الشرقية">المنطقة الشرقية</option>
+            <option value="منطقة المدينة المنورة">منطقة المدينة المنورة</option>
+            <option value="منطقة القصيم">منطقة القصيم</option>
+            <option value="منطقة عسير">منطقة عسير</option>
+            <option value="منطقة تبوك">منطقة تبوك</option>
+            <option value="منطقة حائل">منطقة حائل</option>
+            <option value="منطقة الحدود الشمالية">منطقة الحدود الشمالية</option>
+            <option value="منطقة جازان">منطقة جازان</option>
+            <option value="منطقة نجران">منطقة نجران</option>
+            <option value="منطقة الباحة">منطقة الباحة</option>
+            <option value="منطقة الجوف">منطقة الجوف</option>
+            <option value="خارج المملكة">خارج المملكة</option>
+          </select>
+          <div id="fCity">
+            <label for="aCity">المحافظة</label>
+            <select id="aCity" disabled><option value="" selected disabled>اختر المنطقة أولًا</option></select>
+          </div>
+        </div>
+        <label for="aEmail">البريد الإلكتروني</label>
+        <input type="email" id="aEmail" dir="ltr" autocomplete="email">
+        <label for="aPass">كلمة المرور <span style="font-weight:400;color:var(--ink-soft);font-size:.8rem;">(6 أحرف أو أكثر)</span></label>
+        <input type="password" id="aPass" dir="ltr" autocomplete="new-password">
+        <p class="auth-err" id="authErr" role="alert" hidden></p>
+        <button class="btn-primary" id="authSubmit" type="submit">إنشاء الحساب</button>
+      </form>
+    </div>
+    <div id="authVerify" hidden>
+      <p class="auth-note" id="vNote"></p>
+      <form id="verifyForm" novalidate>
+        <label for="vCode">رمز التحقق</label>
+        <input type="text" id="vCode" class="auth-code" dir="ltr" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······">
+        <p class="auth-err" id="verifyErr" role="alert" hidden></p>
+        <button class="btn-primary" id="verifySubmit" type="submit">تأكيد</button>
+      </form>
+      <button class="auth-link" id="vResend" type="button">إعادة إرسال الرمز</button>
+      <button class="auth-link" id="vBack" type="button">تغيير البريد الإلكتروني</button>
+    </div>
+    <div class="auth-done" id="authDone" hidden>
+      <p id="authDoneMsg"></p>
+      <button class="auth-link" id="authOut" type="button" hidden>تسجيل الخروج</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ابدأ مشروعك: إنشاء حساب / تسجيل الدخول عبر Supabase Auth */
+(function(){
+  var cfg = window.ENTILAQ_DB || {};
+  var ok = !!(cfg.url && cfg.anonKey && !/YOUR-/i.test(cfg.url + cfg.anonKey));
+  function $(id){ return document.getElementById(id); }
+  var overlay = $('authOverlay'), sb = null, mode = 'signup', lastFocus = null;
+
+  function loadSb(){
+    return new Promise(function(res, rej){
+      if(sb) return res(sb);
+      function make(){ sb = window.supabase.createClient(cfg.url, cfg.anonKey); res(sb); }
+      if(window.supabase) return make();
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.0/dist/umd/supabase.min.js';
+      s.onload = make; s.onerror = function(){ rej(new Error('load')); };
+      document.head.appendChild(s);
+    });
+  }
+  var GOV = {"منطقة الرياض": ["الرياض", "الخرج", "الدرعية", "الدوادمي", "المجمعة", "القويعية", "وادي الدواسر", "الأفلاج", "الزلفي", "شقراء", "حوطة بني تميم", "عفيف", "السليل", "ضرماء", "المزاحمية", "رماح", "ثادق", "حريملاء", "الحريق", "الغاط", "مرات", "الدلم", "الرين"], "منطقة مكة المكرمة": ["مكة المكرمة", "جدة", "الطائف", "القنفذة", "الليث", "رابغ", "خليص", "الجموم", "الكامل", "الخرمة", "رنية", "تربة", "ميسان", "أضم", "العرضيات", "بحرة", "الموية", "ظلم"], "المنطقة الشرقية": ["الدمام", "الأحساء", "حفر الباطن", "الجبيل", "القطيف", "الخبر", "الخفجي", "رأس تنورة", "بقيق", "النعيرية", "قرية العليا", "العديد"], "منطقة المدينة المنورة": ["المدينة المنورة", "ينبع", "العلا", "المهد", "الحناكية", "بدر", "خيبر", "العيص", "وادي الفرع"], "منطقة القصيم": ["بريدة", "عنيزة", "الرس", "المذنب", "البكيرية", "البدائع", "الأسياح", "النبهانية", "عيون الجواء", "رياض الخبراء", "الشماسية", "عقلة الصقور", "ضرية"], "منطقة عسير": ["أبها", "خميس مشيط", "بيشة", "النماص", "محايل عسير", "سراة عبيدة", "ظهران الجنوب", "أحد رفيدة", "رجال ألمع", "تثليث", "بلقرن", "المجاردة", "البرك", "بارق", "تنومة", "طريب"], "منطقة تبوك": ["تبوك", "الوجه", "ضباء", "تيماء", "أملج", "حقل", "البدع"], "منطقة حائل": ["حائل", "بقعاء", "الغزالة", "الشنان", "الحائط", "السليمي", "الشملي", "موقق", "سميراء"], "منطقة الحدود الشمالية": ["عرعر", "رفحاء", "طريف", "العويقيلة"], "منطقة جازان": ["جازان", "صبيا", "أبو عريش", "صامطة", "بيش", "الدرب", "فرسان", "الريث", "ضمد", "العارضة", "أحد المسارحة", "العيدابي", "فيفا", "هروب", "الداير"], "منطقة نجران": ["نجران", "شرورة", "حبونا", "بدر الجنوب", "يدمة", "ثار", "خباش", "الخرخير"], "منطقة الباحة": ["الباحة", "بلجرشي", "المندق", "المخواة", "قلوة", "العقيق", "القرى", "غامد الزناد", "بني حسن", "الحجرة"], "منطقة الجوف": ["سكاكا", "دومة الجندل", "القريات", "طبرجل"], "خارج المملكة": []};
+  function fillCity(){
+    var r = $('aRegion').value, list = GOV[r] || [], sel = $('aCity');
+    sel.innerHTML = '';
+    var o = document.createElement('option'); o.value = ''; o.disabled = true; o.selected = true;
+    o.textContent = r ? 'اختر المحافظة' : 'اختر المنطقة أولًا'; sel.appendChild(o);
+    list.forEach(function(n){ var x = document.createElement('option'); x.value = n; x.textContent = n; sel.appendChild(x); });
+    sel.disabled = !list.length; $('fCity').hidden = !!r && !list.length;
+  }
+  $('aRegion').addEventListener('change', fillCity);
+  function err(msg){ var n = $('authErr'); n.textContent = msg || ''; n.hidden = !msg; }
+  function setMode(m){
+    mode = m;
+    $('tabSignup').setAttribute('aria-selected', m === 'signup');
+    $('tabLogin').setAttribute('aria-selected', m === 'login');
+    $('fName').hidden = m !== 'signup'; $('fExtra').hidden = m !== 'signup';
+    $('authSubmit').textContent = m === 'signup' ? 'إنشاء الحساب' : 'تسجيل الدخول';
+    $('aPass').setAttribute('autocomplete', m === 'signup' ? 'new-password' : 'current-password');
+    $('authSub').textContent = m === 'signup' ? 'أنشئ حسابك واحصل على خصم 10% على أول طلب.' : 'سجّل دخولك وكمّل طلب خدمتك.';
+    err('');
+  }
+  function goStart(){ showDone('جارٍ تحويلك لاختيار الخدمة…', false); location.href = 'start.html'; }
+  function showForm(){ $('authFormWrap').hidden = false; $('authDone').hidden = true; $('authVerify').hidden = true; }
+  function showDone(msg, canLogout){
+    $('authFormWrap').hidden = true; $('authDone').hidden = false; $('authVerify').hidden = true;
+    $('authDoneMsg').textContent = msg; $('authOut').hidden = !canLogout;
+  }
+  function greet(u){
+    var n = u && u.user_metadata && u.user_metadata.full_name;
+    return (n ? 'أهلًا ' + n + '، ' : 'أهلًا، ') + 'تم تسجيل دخولك بنجاح.';
+  }
+  function setOpen(v){
+    overlay.classList.toggle('open', v);
+    overlay.setAttribute('aria-hidden', v ? 'false' : 'true');
+    document.body.style.overflow = v ? 'hidden' : ($('postOverlay') && $('postOverlay').classList.contains('open') ? 'hidden' : '');
+  }
+  function openAuth(opener){
+    lastFocus = opener || document.activeElement;
+    err(''); showForm(); setOpen(true);
+    $(mode === 'signup' ? 'aName' : 'aEmail').focus();
+    if(ok) loadSb().then(function(c){ return c.auth.getSession(); }).then(function(r){
+      var s = r.data && r.data.session;
+      if(s) goStart();
+    }).catch(function(){});
+  }
+  function closeAuth(){
+    if(!overlay.classList.contains('open')) return;
+    setOpen(false);
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  function mapErr(e){
+    var m = (e && e.message) || '';
+    if(/invalid login/i.test(m)) return 'البريد أو كلمة المرور غير صحيحة.';
+    if(/already registered|already been registered/i.test(m)) return 'هذا البريد مسجّل من قبل. جرّب تسجيل الدخول.';
+    if(/not confirmed/i.test(m)) return 'أكّد بريدك أول من الرسالة اللي وصلتك، وبعدها سجّل دخولك.';
+    if(/at least|weak/i.test(m)) return 'كلمة المرور لازم تكون 6 أحرف على الأقل.';
+    if(/rate limit|too many/i.test(m)) return 'محاولات كثيرة. انتظر شوي وحاول من جديد.';
+    if(/valid email|invalid.*email/i.test(m)) return 'اكتب بريد إلكتروني صحيح.';
+    return 'صار خطأ غير متوقع. حاول مرة ثانية.';
+  }
+
+
+  /* ---------- التحقق برمز من 6 أرقام ---------- */
+  var pendingEmail = '', cdTimer = null;
+  function verr(msg){ var n = $('verifyErr'); n.textContent = msg || ''; n.hidden = !msg; }
+  function cooldown(sec){
+    var b = $('vResend'); clearInterval(cdTimer); b.disabled = true;
+    (function tick(){
+      if(sec <= 0){ b.disabled = false; b.textContent = 'إعادة إرسال الرمز'; clearInterval(cdTimer); return; }
+      b.textContent = 'إعادة الإرسال بعد ' + sec + ' ثانية'; sec--;
+    })();
+    cdTimer = setInterval(function(){
+      if(sec <= 0){ b.disabled = false; b.textContent = 'إعادة إرسال الرمز'; clearInterval(cdTimer); return; }
+      b.textContent = 'إعادة الإرسال بعد ' + sec + ' ثانية'; sec--;
+    }, 1000);
+  }
+  function showVerify(email){
+    pendingEmail = email;
+    $('authFormWrap').hidden = true; $('authDone').hidden = true; $('authVerify').hidden = false;
+    $('vNote').textContent = 'أرسلنا رمزًا مكوّنًا من 6 أرقام إلى ' + email + '. اكتبه هنا لتأكيد بريدك.';
+    $('vCode').value = ''; verr(''); cooldown(60); $('vCode').focus();
+  }
+  $('vCode').addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,6); });
+  $('verifyForm').addEventListener('submit', function(e){
+    e.preventDefault(); verr('');
+    var code = $('vCode').value.trim();
+    if(!/^\d{6}$/.test(code)){ verr('اكتب الرمز المكوّن من 6 أرقام.'); $('vCode').focus(); return; }
+    var btn = $('verifySubmit'); btn.disabled = true; btn.textContent = 'لحظات…';
+    loadSb().then(function(c){ return c.auth.verifyOtp({ email:pendingEmail, token:code, type:'signup' }); }).then(function(r){
+      btn.disabled = false; btn.textContent = 'تأكيد';
+      if(r.error){ verr(/expired|invalid/i.test(r.error.message || '') ? 'الرمز غير صحيح أو انتهت صلاحيته. جرّب إعادة الإرسال.' : mapErr(r.error)); return; }
+      goStart();
+    }).catch(function(){ btn.disabled = false; btn.textContent = 'تأكيد'; verr('تعذر الاتصال. حاول مرة ثانية.'); });
+  });
+  $('vResend').addEventListener('click', function(){
+    verr(''); cooldown(60);
+    loadSb().then(function(c){ return c.auth.resend({ type:'signup', email:pendingEmail }); }).then(function(r){
+      if(r && r.error) verr(mapErr(r.error));
+    }).catch(function(){ verr('تعذر إرسال الرمز. حاول مرة ثانية.'); });
+  });
+  $('vBack').addEventListener('click', function(){ clearInterval(cdTimer); showForm(); setMode('signup'); $('aEmail').focus(); });
+
+  $('tabSignup').addEventListener('click', function(){ setMode('signup'); });
+  $('tabLogin').addEventListener('click', function(){ setMode('login'); });
+
+  $('authForm').addEventListener('submit', function(e){
+    e.preventDefault(); err('');
+    var name = $('aName').value.trim(), email = $('aEmail').value.trim(), pass = $('aPass').value;
+    var phone = $('aPhone').value.trim(), region = $('aRegion').value, digits = phone.replace(/\D/g,'');
+    if(mode === 'signup' && !name){ err('اكتب اسمك.'); $('aName').focus(); return; }
+    if(mode === 'signup' && (digits.length < 8 || digits.length > 15)){ err('اكتب رقم جوال صحيح.'); $('aPhone').focus(); return; }
+    if(mode === 'signup' && !region){ err('اختر منطقتك.'); $('aRegion').focus(); return; }
+    var city = $('aCity').value;
+    if(mode === 'signup' && (GOV[region] || []).length && !city){ err('اختر المحافظة.'); $('aCity').focus(); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err('اكتب بريد إلكتروني صحيح.'); $('aEmail').focus(); return; }
+    if(pass.length < 6){ err('كلمة المرور لازم تكون 6 أحرف على الأقل.'); $('aPass').focus(); return; }
+    if(!ok){ err('الخدمة غير متاحة حاليًا. تواصل معنا عبر واتساب.'); return; }
+    var btn = $('authSubmit'), label = btn.textContent; btn.disabled = true; btn.textContent = 'لحظات…';
+    loadSb().then(function(c){
+      return mode === 'signup'
+        ? c.auth.signUp({ email:email, password:pass, options:{ data:{ full_name:name, phone:phone, region:region, governorate:city } } })
+        : c.auth.signInWithPassword({ email:email, password:pass });
+    }).then(function(r){
+      btn.disabled = false; btn.textContent = label;
+      if(r.error){
+        if(/not confirmed/i.test(r.error.message || '')){ loadSb().then(function(c){ return c.auth.resend({ type:'signup', email:email }); }).catch(function(){}); showVerify(email); return; }
+        err(mapErr(r.error)); if(/already/i.test(r.error.message || '')) setMode('login'); return;
+      }
+      var u = r.data && r.data.user;
+      if(mode === 'signup' && u && u.identities && u.identities.length === 0){ err('هذا البريد مسجّل من قبل. جرّب تسجيل الدخول.'); setMode('login'); return; }
+      if(mode === 'signup' && !(r.data && r.data.session)){ showVerify(email); return; }
+      goStart();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = label;
+      err('تعذر الاتصال. تأكد من الإنترنت وحاول مرة ثانية.');
+    });
+  });
+
+  $('authOut').addEventListener('click', function(){
+    loadSb().then(function(c){ return c.auth.signOut(); }).then(function(){ showForm(); setMode('login'); $('aEmail').focus(); });
+  });
+  $('authClose').addEventListener('click', closeAuth);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeAuth(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAuth(); });
+
+  /* كل أزرار «ابدأ مشروعك»: بدل الواتساب تفتح الخيارين (الرابط القديم يبقى احتياطًا لو تعطل الجافاسكربت) */
+  document.querySelectorAll('.nav-cta, #postCta').forEach(function(b){
+    b.addEventListener('click', function(e){ e.preventDefault(); openAuth(b); });
+  });
+})();
+</script>
+
 </body>
 </html>
