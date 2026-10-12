@@ -438,15 +438,15 @@
   .mark-plate{
     width:min(320px,80vw);aspect-ratio:1;border-radius:50%;
     background:
-      radial-gradient(circle at 34% 30%, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 40%),
-      repeating-linear-gradient(-18deg, rgba(23,163,152,.07) 0 16px, rgba(255,255,255,0) 16px 34px),
-      radial-gradient(circle at 46% 42%, #f2fafc 0%, #dcf0f6 30%, #a9d8ea 52%, #5aa9d2 72%, #2a7fb8 87%, #12507f 100%);
+      radial-gradient(circle at 34% 30%, rgba(255,255,255,.95) 0%, rgba(255,255,255,0) 42%),
+      repeating-linear-gradient(-18deg, rgba(23,163,152,.05) 0 16px, rgba(255,255,255,0) 16px 34px),
+      radial-gradient(circle at 46% 42%, #fbfeff 0%, #eaf6fa 34%, #d3ebf5 58%, #b4dbee 80%, #9ccbe4 100%);
     box-shadow:
-      inset -34px -40px 70px rgba(11,37,54,.45),
-      inset 14px 16px 40px rgba(255,255,255,.55),
-      0 0 0 1px rgba(255,255,255,.08),
-      0 0 70px rgba(23,163,152,.35),
-      0 30px 70px rgba(0,0,0,.35);
+      inset -26px -30px 56px rgba(30,136,199,.18),
+      inset 14px 16px 40px rgba(255,255,255,.7),
+      0 0 0 1px rgba(255,255,255,.6),
+      0 0 60px rgba(23,163,152,.22),
+      0 24px 50px rgba(11,37,54,.12);
     display:flex;align-items:center;justify-content:center;
     position:relative;
   }
@@ -592,6 +592,23 @@
   }
   .sector-tile h4 em{font-style:normal;color:var(--ink-soft);font-weight:500;font-size:.88em;}
   .sector-tile p{font-size:.88rem;color:var(--ink-soft);line-height:1.85;}
+
+  /* بطاقات الخدمات: أيقونة + كلمات مفتاحية بدل الفقرات */
+  .sector-tile.t-strategy{--tc-bg:rgba(30,136,199,.10);--tx:#0F5E8C;--ig:linear-gradient(135deg,#1E88C7,#0F5E8C);--sh:rgba(30,136,199,.28);}
+  .sector-tile.t-media{--tc-bg:rgba(245,166,35,.16);--tx:#8a5a00;--ig:linear-gradient(135deg,#F5A623,#c9820f);--sh:rgba(245,166,35,.30);}
+  .sector-tile.t-store{--tc-bg:rgba(23,163,152,.12);--tx:#0b6f66;--ig:linear-gradient(135deg,#17A398,#0b7a71);--sh:rgba(23,163,152,.28);}
+  .tile-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .tile-top .tile-num{margin-bottom:0;color:var(--tx);background:var(--tc-bg);}
+  .tile-ico{
+    width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;
+    background:var(--ig);box-shadow:0 10px 22px var(--sh);transition:transform .3s;
+  }
+  .tile-ico svg{width:26px;height:26px;}
+  .sector-tile:hover .tile-ico{transform:scale(1.08) rotate(-5deg);}
+  .tile-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+  .tile-chips span{font-size:.8rem;font-weight:600;line-height:1.4;padding:6px 13px;border-radius:100px;background:var(--tc-bg);color:var(--tx);}
+  .tile-sr{position:absolute !important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+  @media (prefers-reduced-motion:reduce){ .tile-ico{transition:none;} .sector-tile:hover .tile-ico{transform:none;} }
 
   @media (max-width:700px){
     .sector-tiles{grid-template-columns:1fr;}
@@ -776,10 +793,10 @@
   /* article reader */
   .post-overlay{
     position:fixed;inset:0;z-index:110;display:none;overflow-y:auto;
-    background:rgba(11,37,54,.55);backdrop-filter:blur(3px);padding:28px 16px;
+    background:rgba(232,240,244,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:28px 16px;
   }
   .post-overlay.open{display:block;}
-  .post-sheet{position:relative;max-width:760px;margin:0 auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 30px 80px rgba(11,37,54,.25);}
+  .post-sheet{position:relative;max-width:760px;margin:0 auto;background:#fff;border-radius:24px;overflow:hidden;border:1px solid rgba(11,37,54,.08);box-shadow:0 24px 60px rgba(11,37,54,.12);}
   .post-close{
     position:absolute;top:16px;left:16px;z-index:2;width:38px;height:38px;border-radius:50%;
     background:rgba(255,255,255,.9);color:var(--ink);font-size:1.05rem;box-shadow:0 4px 14px rgba(11,37,54,.18);
@@ -810,10 +827,10 @@
     /* ---------- sign-up / log-in modal ---------- */
   .auth-overlay{
     position:fixed;inset:0;z-index:120;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;
-    background:rgba(11,37,54,.55);backdrop-filter:blur(3px);padding:6vh 16px 24px;
+    background:rgba(232,240,244,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);padding:6vh 16px 24px;
   }
   .auth-overlay.open{display:flex;}
-  .auth-sheet{position:relative;width:100%;max-width:420px;background:#fff;border-radius:24px;padding:34px 30px 30px;box-shadow:0 30px 80px rgba(11,37,54,.25);margin:auto 0;}
+  .auth-sheet{position:relative;width:100%;max-width:420px;background:#fff;border-radius:24px;padding:34px 30px 30px;border:1px solid rgba(11,37,54,.08);box-shadow:0 24px 60px rgba(11,37,54,.12);margin:auto 0;}
   .auth-sheet h2{font-size:1.5rem;margin-bottom:6px;color:var(--ink);}
   .auth-sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:20px;line-height:1.8;}
   .auth-tabs{display:flex;gap:4px;padding:4px;border-radius:100px;background:var(--paper-2);margin-bottom:4px;}
@@ -1411,25 +1428,29 @@
         </div>
       </div>
       <div class="sector-tiles">
-        <div class="sector-tile">
-          <span class="tile-num">01</span>
+        <div class="sector-tile t-strategy">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg></span><span class="tile-num">01</span></div>
           <h4>بناء الهوية التجارية المتكاملة <em>(Branding)</em></h4>
-          <p>صياغة الرؤية، الرسالة، القيم، الاستراتيجية، وبناء كتاب دليل العلامة التجارية (Brand Guidelines)</p>
+          <div class="tile-chips"><span>الرؤية والرسالة</span><span>القيم والاستراتيجية</span><span>دليل الهوية</span></div>
+          <p class="tile-sr">صياغة الرؤية، الرسالة، القيم، الاستراتيجية، وبناء كتاب دليل العلامة التجارية (Brand Guidelines)</p>
         </div>
-        <div class="sector-tile">
-          <span class="tile-num">02</span>
+        <div class="sector-tile t-strategy">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M8 13v-2M11 13V9M14 13v-3"/></svg></span><span class="tile-num">02</span></div>
           <h4>أبحاث ودراسات السوق <em>(Market Research)</em></h4>
-          <p>تحليل المنافسين، دراسة سلوك المستهلك، وتحديد الفجوات التسويقية</p>
+          <div class="tile-chips"><span>تحليل المنافسين</span><span>سلوك المستهلك</span><span>الفجوات التسويقية</span></div>
+          <p class="tile-sr">تحليل المنافسين، دراسة سلوك المستهلك، وتحديد الفجوات التسويقية</p>
         </div>
-        <div class="sector-tile">
-          <span class="tile-num">03</span>
+        <div class="sector-tile t-strategy">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg></span><span class="tile-num">03</span></div>
           <h4>الخطط والتكتيكات التسويقية <em>(Marketing Strategies)</em></h4>
-          <p>رسم خطط النمو السنوية والموسمية وتحديد الميزانيات الإعلانية ومؤشرات الأداء (KPIs)</p>
+          <div class="tile-chips"><span>خطط سنوية وموسمية</span><span>ميزانيات الإعلانات</span><span>مؤشرات الأداء</span></div>
+          <p class="tile-sr">رسم خطط النمو السنوية والموسمية وتحديد الميزانيات الإعلانية ومؤشرات الأداء (KPIs)</p>
         </div>
-        <div class="sector-tile">
-          <span class="tile-num">04</span>
+        <div class="sector-tile t-strategy">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></svg></span><span class="tile-num">04</span></div>
           <h4>استشارات وتطوير الأعمال</h4>
-          <p>إعادة تموضع الشركات في السوق (Rebranding) لرفع قيمتها السوقية</p>
+          <div class="tile-chips"><span>إعادة التموضع</span><span>رفع القيمة السوقية</span></div>
+          <p class="tile-sr">إعادة تموضع الشركات في السوق (Rebranding) لرفع قيمتها السوقية</p>
         </div>
       </div>
     </div>
@@ -1445,25 +1466,35 @@
         </div>
       </div>
       <div class="sector-tiles">
-        <div class="sector-tile">
-          <span class="tile-num">01</span>
+        <div class="sector-tile t-media">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span><span class="tile-num">01</span></div>
           <h4>الإنتاج المرئي والمسموع <em>(Media Production)</em></h4>
-          <p>تصوير الإعلانات التجارية والسينمائية الفخمة، وتطوير الفيديوهات التوضيحية (Motion Graphics)</p>
+          <div class="tile-chips"><span>تصوير الإعلانات</span><span>فيديو توضيحي</span></div>
+          <p class="tile-sr">تصوير الإعلانات التجارية والسينمائية الفخمة، وتطوير الفيديوهات التوضيحية (Motion Graphics)</p>
         </div>
-        <div class="sector-tile">
-          <span class="tile-num">02</span>
+        <div class="sector-tile t-media">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span><span class="tile-num">02</span></div>
           <h4>صناعة وتطوير المحتوى <em>(Content Creation)</em></h4>
-          <p>كتابة المحتوى الإبداعي (Copywriting) للموقع الإلكتروني، المنشورات، والملفات التعريفية للشركات (Profiles)</p>
+          <div class="tile-chips"><span>كتابة إبداعية</span><span>محتوى الموقع والمنشورات</span><span>ملفات تعريفية</span></div>
+          <p class="tile-sr">كتابة المحتوى الإبداعي (Copywriting) للموقع الإلكتروني، المنشورات، والملفات التعريفية للشركات (Profiles)</p>
         </div>
-        <div class="sector-tile">
-          <span class="tile-num">03</span>
+        <div class="sector-tile t-media">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 22a10 10 0 1 1 10-10c0 2.5-2 3-3.5 3H16a2 2 0 0 0-1.5 3.3c.6.7 0 3.7-2.5 3.7z"/></svg></span><span class="tile-num">03</span></div>
           <h4>التصميم الإبداعي <em>(Creative Design)</em></h4>
-          <p>تصميم الشعارات، المطبوعات، الهويات البصرية، وتصاميم منصات التواصل الاجتماعي</p>
+          <div class="tile-chips"><span>الشعارات</span><span>المطبوعات</span><span>الهويات البصرية</span><span>تصاميم السوشيال</span></div>
+          <p class="tile-sr">تصميم الشعارات، المطبوعات، الهويات البصرية، وتصاميم منصات التواصل الاجتماعي</p>
         </div>
-        <div class="sector-tile">
-          <span class="tile-num">04</span>
+        <div class="sector-tile t-media">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8v18L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span><span class="tile-num">04</span></div>
           <h4>إدارة المنصات والحملات الرقمية <em>(Digital Media Management)</em></h4>
-          <p>إدارة حسابات السوشيال ميديا، وإطلاق الحملات الإعلانية المدفوعة والممولة، وتحسين محركات البحث (SEO)</p>
+          <div class="tile-chips"><span>إدارة السوشيال ميديا</span><span>حملات ممولة</span><span>SEO</span></div>
+          <p class="tile-sr">إدارة حسابات السوشيال ميديا، وإطلاق الحملات الإعلانية المدفوعة والممولة، وتحسين محركات البحث (SEO)</p>
+        </div>
+        <div class="sector-tile t-store" style="grid-column:1/-1;">
+          <div class="tile-top"><span class="tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span><span class="tile-num">05</span></div>
+          <h4>نبني متجرك الإلكتروني ونديره بالكامل بعقد سنوي <em>(E-commerce)</em></h4>
+          <div class="tile-chips"><span>بناء المتجر</span><span>إدارة كاملة</span><span>عقد سنوي</span><span>متاجر مستقلة</span><span>متاجر على المنصات الكبرى</span></div>
+          <p class="tile-sr">المتاجر المستقلة والمتاجر على المنصات الإلكترونية الكبرى</p>
         </div>
       </div>
     </div>
@@ -1698,7 +1729,7 @@
   <div class="wrap">
     <div class="contact-card">
       <div class="contact-inner">
-        <h2>دائما قريبون منكم</h2>
+        <h2>دائمًا قريبون منكم</h2>
         <p>تواصل معنا الآن وخلّي مشروعك ينطلق بهوية تجارية تستحقها</p>
         <a class="whatsapp-btn btn-ripple" href="https://wa.me/966506009292" target="_blank" rel="noopener" aria-label="تواصل معنا عبر واتس آب">
           <svg class="ic wa-ic" viewBox="0 0 32 32" width="36" height="36" aria-hidden="true"><path fill="#25D366" d="M16 3C9 3 3.3 8.6 3.3 15.6c0 2.5.7 4.9 2 7L3 29l6.6-2.2c2 1.1 4.2 1.7 6.4 1.7 7 0 12.7-5.6 12.7-12.6C28.7 8.6 23 3 16 3z"/><path fill="#fff" d="M22.4 19.2c-.3-.2-1.9-1-2.2-1.1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.5-.5.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.3 2.4 3.6 5.7 5 .8.3 1.4.6 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z"/></svg>
@@ -2585,10 +2616,15 @@
         <p class="auth-err" id="authErr" role="alert" hidden></p>
         <button class="btn-primary" id="authSubmit" type="submit">إنشاء الحساب</button>
       </form>
+      <button class="auth-link" id="haveCode" type="button">وصلني رمز تحقق على بريدي</button>
     </div>
     <div id="authVerify" hidden>
       <p class="auth-note" id="vNote"></p>
       <form id="verifyForm" novalidate>
+        <div id="vEmailWrap" hidden>
+          <label for="vEmail">البريد الإلكتروني</label>
+          <input type="email" id="vEmail" dir="ltr" autocomplete="email">
+        </div>
         <label for="vCode">رمز التحقق</label>
         <input type="text" id="vCode" class="auth-code" dir="ltr" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="······">
         <p class="auth-err" id="verifyErr" role="alert" hidden></p>
@@ -2599,6 +2635,7 @@
     </div>
     <div class="auth-done" id="authDone" hidden>
       <p id="authDoneMsg"></p>
+      <a class="btn-primary" id="goStartLink" href="start.html">متابعة لاختيار الخدمة</a>
       <button class="auth-link" id="authOut" type="button" hidden>تسجيل الخروج</button>
     </div>
   </div>
@@ -2662,7 +2699,8 @@
   function openAuth(opener){
     lastFocus = opener || document.activeElement;
     err(''); showForm(); setOpen(true);
-    $(mode === 'signup' ? 'aName' : 'aEmail').focus();
+    var pend = readStore();
+    if(pend) showVerify(pend); else $(mode === 'signup' ? 'aName' : 'aEmail').focus();
     if(ok) loadSb().then(function(c){ return c.auth.getSession(); }).then(function(r){
       var s = r.data && r.data.session;
       if(s) goStart();
@@ -2700,32 +2738,49 @@
       b.textContent = 'إعادة الإرسال بعد ' + sec + ' ثانية'; sec--;
     }, 1000);
   }
+  function store(v){ try{ if(v) sessionStorage.setItem('entilaq_pending_verify', v); else sessionStorage.removeItem('entilaq_pending_verify'); }catch(e){} }
+  function readStore(){ try{ return sessionStorage.getItem('entilaq_pending_verify') || ''; }catch(e){ return ''; } }
   function showVerify(email){
-    pendingEmail = email;
+    pendingEmail = email || ''; store(pendingEmail);
     $('authFormWrap').hidden = true; $('authDone').hidden = true; $('authVerify').hidden = false;
-    $('vNote').textContent = 'أرسلنا رمزًا مكوّنًا من 6 أرقام إلى ' + email + '. اكتبه هنا لتأكيد بريدك.';
-    $('vCode').value = ''; verr(''); cooldown(60); $('vCode').focus();
+    $('vEmailWrap').hidden = !!pendingEmail;
+    $('vNote').textContent = pendingEmail
+      ? 'أرسلنا رمزًا مكوّنًا من 6 أرقام إلى ' + pendingEmail + '. اكتبه هنا لتأكيد بريدك.'
+      : 'اكتب بريدك والرمز المكوّن من 6 أرقام اللي وصلك.';
+    $('vCode').value = ''; verr('');
+    if(pendingEmail) cooldown(60); else { clearInterval(cdTimer); $('vResend').disabled = false; $('vResend').textContent = 'إعادة إرسال الرمز'; }
+    (pendingEmail ? $('vCode') : $('vEmail')).focus();
   }
   $('vCode').addEventListener('input', function(){ this.value = this.value.replace(/\D/g,'').slice(0,6); });
   $('verifyForm').addEventListener('submit', function(e){
     e.preventDefault(); verr('');
+    var em = pendingEmail || $('vEmail').value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ verr('اكتب بريدك الإلكتروني.'); $('vEmail').focus(); return; }
+    pendingEmail = em; store(em);
     var code = $('vCode').value.trim();
     if(!/^\d{6}$/.test(code)){ verr('اكتب الرمز المكوّن من 6 أرقام.'); $('vCode').focus(); return; }
     var btn = $('verifySubmit'); btn.disabled = true; btn.textContent = 'لحظات…';
-    loadSb().then(function(c){ return c.auth.verifyOtp({ email:pendingEmail, token:code, type:'signup' }); }).then(function(r){
+    loadSb().then(function(c){ return c.auth.verifyOtp({ email:em, token:code, type:'signup' }); }).then(function(r){
       btn.disabled = false; btn.textContent = 'تأكيد';
       if(r.error){ verr(/expired|invalid/i.test(r.error.message || '') ? 'الرمز غير صحيح أو انتهت صلاحيته. جرّب إعادة الإرسال.' : mapErr(r.error)); return; }
-      goStart();
+      store(''); goStart();
     }).catch(function(){ btn.disabled = false; btn.textContent = 'تأكيد'; verr('تعذر الاتصال. حاول مرة ثانية.'); });
   });
   $('vResend').addEventListener('click', function(){
+    var em = pendingEmail || $('vEmail').value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){ verr('اكتب بريدك الإلكتروني أول.'); $('vEmail').focus(); return; }
+    pendingEmail = em; store(em); $('vEmailWrap').hidden = true;
     verr(''); cooldown(60);
-    loadSb().then(function(c){ return c.auth.resend({ type:'signup', email:pendingEmail }); }).then(function(r){
+    loadSb().then(function(c){ return c.auth.resend({ type:'signup', email:em }); }).then(function(r){
       if(r && r.error) verr(mapErr(r.error));
     }).catch(function(){ verr('تعذر إرسال الرمز. حاول مرة ثانية.'); });
   });
-  $('vBack').addEventListener('click', function(){ clearInterval(cdTimer); showForm(); setMode('signup'); $('aEmail').focus(); });
+  $('vBack').addEventListener('click', function(){ clearInterval(cdTimer); store(''); showForm(); setMode('signup'); $('aEmail').focus(); });
 
+  $('haveCode').addEventListener('click', function(){
+    var em = $('aEmail').value.trim();
+    showVerify(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em) ? em : '');
+  });
   $('tabSignup').addEventListener('click', function(){ setMode('signup'); });
   $('tabLogin').addEventListener('click', function(){ setMode('login'); });
 
@@ -2756,7 +2811,8 @@
       if(mode === 'signup' && u && u.identities && u.identities.length === 0){ err('هذا البريد مسجّل من قبل. جرّب تسجيل الدخول.'); setMode('login'); return; }
       if(mode === 'signup' && !(r.data && r.data.session)){ showVerify(email); return; }
       goStart();
-    }).catch(function(){
+    }).catch(function(ex){
+      console.error('auth:', ex);
       btn.disabled = false; btn.textContent = label;
       err('تعذر الاتصال. تأكد من الإنترنت وحاول مرة ثانية.');
     });
